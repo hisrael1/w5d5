@@ -4,13 +4,13 @@ def eighties_b_movies
   # Show the id, title, year, and score.
   Movie
     .select(:id, :title, :yr, :score)
-    .where
+    .where(yr: 1980..1989, score: 3..5)
 
 end
 
 def bad_years
   # List the years in which a movie with a rating above 8 was not released.
-
+  Movie.group(:yr).having('MAX(score) < 8').pluck(:yr)
 end
 
 def cast_list(title)
